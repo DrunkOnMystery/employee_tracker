@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const logo = require("logo");
 const console = require("console.table")
 
-
+teamMembers = [];
 
 //function init()
 

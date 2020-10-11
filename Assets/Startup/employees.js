@@ -1,6 +1,16 @@
 const inquirer = require("inquirer");
 
+class Employee {
 
+    constructor(firstName, lastName, role, manager, salary, department) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.role = role;
+        this.manager = manager;
+        this.salary = salary;
+        this.department = department;
+    }
+}
 
 
 
@@ -62,7 +72,38 @@ function viewEmployees() {
     }
 
     function addEmployee() {
-        //addEmployee function
+        //addEmployee function. role salary manager department
+        inquirer.prompt ({
+            type: "input",
+            name: "firstName",
+            message: "What is the new employee's first name?"
+        },
+        {
+            type: "input",
+            name: "lastName",
+            message: "What is the new employee's last name?"
+        },
+        {
+            type: "number",
+            name: "role",
+            message: "What is the new employee's role ID?"
+        },
+        {
+            type: "number",
+            name: "salary",
+            message: "What is the new employee's salary?"
+        },
+        {
+            type: "number",
+            name: "department",
+            message: "What is the new employee's department ID?"
+        })
+        .then(answer => {
+            const employee = new Employee(answer.firstName, answer.lastName, answer.role, answer.salary, answer.department);
+            push.teamMembers(employee);
+            //push this info into the database, somehow
+            viewEmployees();
+        })
     }
         
     function deleteEmployee() {
@@ -78,7 +119,6 @@ function viewEmployees() {
     }
 
     function mainMenu() {
-        //mainMenu function
         loadPrompts();
     }
 }
