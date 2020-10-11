@@ -5,6 +5,7 @@ const logo = require("logo");
 const console = require("console.table")
 
 
+
 //function init()
 
 function init() {
@@ -40,10 +41,7 @@ function loadPrompts() {
         //     name: "Add Role",
         //     value: "ADD_ROLE"
         // },
-        // {
-        //     name: "Add Employee",
-        //     value: "ADD_EMPLOYEE"
-        // },
+
         // {
         //     name: "Update Employee Roles",
         //     value: "UPDATE_ROLES"
@@ -71,7 +69,12 @@ function loadPrompts() {
         {
             name: "View Total Budget",
             value: "VIEW_BUDGET"
-        }]
+        },
+        {
+            name: "Finish",
+            value: "FINISH"
+        }
+    ]
     })
 
 
@@ -85,6 +88,9 @@ function loadPrompts() {
 
         case "VIEW_BUDGET":
             return viewBudget();
+        
+        case "FINISH":
+            ////end
     }
 
 
