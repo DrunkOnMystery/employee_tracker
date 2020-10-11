@@ -8,7 +8,7 @@ const console = require("console.table")
 //function init()
 
 function init() {
-    const logoText = logo({name: "Employee Manager"}).render();
+    const logoText = logo({ name: "Employee Manager" }).render();
     console.log(logoText);
 
     //load our prompts
@@ -16,7 +16,7 @@ function init() {
 }
 
 function loadPrompts() {
-    inquirer.prompt ({
+    inquirer.prompt({
         type: "list",
         name: "choice",
         message: "What would you like to do?",
@@ -75,14 +75,14 @@ function loadPrompts() {
     })
 
 
-//Switch statement
+    //Switch statement
     switch (choice) {
         case "VIEW_EMPLOYEES":
             return viewEmployees();
 
         case "VIEW_DEPARTMENTS":
             return viewDepartments();
-        
+
         case "VIEW_BUDGET":
             return viewBudget();
     }
@@ -90,3 +90,4 @@ function loadPrompts() {
 
 }
 
+init();
