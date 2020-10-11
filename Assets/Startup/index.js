@@ -22,7 +22,7 @@ function loadPrompts() {
         name: "choice",
         message: "What would you like to do?",
         choice: [{
-            name: "View All Employees",
+            name: "View Employees",
             value: "VIEW_EMPLOYEES"
         },
         {
@@ -97,3 +97,10 @@ function loadPrompts() {
 }
 
 init();
+
+
+module.exports = {
+    viewEmployees,
+    viewDepartments,
+    viewBudget
+}

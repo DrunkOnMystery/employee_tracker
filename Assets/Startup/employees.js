@@ -3,6 +3,7 @@ const inquirer = require("inquirer");
 
 
 
+
 function viewEmployees() {
     inquirer.prompt({
         type: "list",
@@ -25,6 +26,10 @@ function viewEmployees() {
              value: "EDIT_EMPLOYEE"  
         },
         {
+             name: "List Employees:",
+             value: "LIST_EMPLOYEES"
+        },
+        {
              name: "Return To The Main Menu",
              value: "MAIN_MENU"
         }
@@ -45,12 +50,37 @@ function viewEmployees() {
         case "EDIT_EMPLOYEE":
             return editEmployee();
 
+        case "LIST_EMPLOYEES":
+            return listEmployees();
+
         case "MAIN_MENU":
             return mainMenu();
     }
 
     function viewSingleEmployee() {
-        
+        //visitSingleEmployee function
+    }
+
+    function addEmployee() {
+        //addEmployee function
     }
         
+    function deleteEmployee() {
+        //deleteEmployee function
+    }
+
+    function editEmployee() {
+        //editEmployee function
+    }
+
+    function listEmployees() {
+        //listEmployees function
+    }
+
+    function mainMenu() {
+        //mainMenu function
+        loadPrompts();
+    }
 }
+
+module.exports = viewEmployees;
