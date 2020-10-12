@@ -10,7 +10,7 @@ CREATE TABLE employee (
     lastname VARCHAR(30) NOT NULL,
     jobtitle_id INTEGER(10) NULL,
     manager_id INTEGER(10) NULL,
-    department_id INTEGER(10) NULL,
+    department_id INTEGER(10) NULL,    
 );
 
 CREATE TABLE jobtitle (
@@ -24,5 +24,5 @@ CREATE TABLE department (
     department_name VARCHAR(30)
 );
 
-INSERT INTO employee (firstname, lastname, role_id, manager_id)
-VALUES ()
+INSERT INTO employee (firstname, lastname, jobtitle_id, manager_id)
+VALUES (Ben, Brumby, );
