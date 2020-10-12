@@ -1,8 +1,8 @@
 //Require statements
 const inquirer = require("inquirer");
-const mysql = require("mysql");
 const logo = require("logo");
-const console = require("console.table")
+const console = require("console.table");
+const connection = require("./db/connection");
 
 teamMembers = [];
 
@@ -19,7 +19,7 @@ function init() {
 function loadPrompts() {
     inquirer.prompt({
         type: "list",
-        name: "choice",
+        name: "choices",
         message: "What would you like to do?",
         choice: [{
             name: "View Employees",
@@ -76,9 +76,9 @@ function loadPrompts() {
     ]
     })
 
-
+    .then (answer => {
     //Switch statement
-    switch (choice) {
+    switch (answer.choices) {
         case "VIEW_EMPLOYEES":
             return viewEmployees();
 
@@ -93,7 +93,7 @@ function loadPrompts() {
     }
 
 
-}
+})
 
 init();
 
