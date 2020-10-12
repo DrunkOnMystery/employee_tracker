@@ -24,5 +24,5 @@ CREATE TABLE department (
     department_name VARCHAR(30)
 );
 
-INSERT INTO employee (firstname, lastname, role_id, manager_id)
-VALUES ()
+INSERT INTO employee (firstname, lastname)
+VALUES (John, McLane);
