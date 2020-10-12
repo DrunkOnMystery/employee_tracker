@@ -1,3 +1,4 @@
+const { builtinModules } = require("module")
 
 
 var connection = mysql.createconnection({
@@ -11,3 +12,4 @@ var connection = mysql.createconnection({
     database: "Employees",
 })
 
+module.exports = connection;

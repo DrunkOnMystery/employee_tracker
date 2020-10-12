@@ -1,4 +1,5 @@
 const inquirer = require("inquirer");
+const connection = require("./db/connection");
 
 class Employee {
 
@@ -15,6 +16,10 @@ class Employee {
 
 
 function viewEmployees() {
+
+   return connection.query(
+       "SELECT employee.id. em"
+   )
     inquirer.prompt({
         type: "list",
         name: "employeeChoice",
