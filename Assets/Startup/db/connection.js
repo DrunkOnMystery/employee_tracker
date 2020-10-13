@@ -12,8 +12,15 @@ const connection = mysql.createConnection({
 
 connection.connect(function(err) {
   if (err) throw err;
-  console.log("connected as id " + connection.threadId + "\n");
-  questions();  
+//   console.log("connected as id " + connection.threadId + "\n");
+//   init();  
 });
 
+// function init() {
+//     // const logoText = logo({ name: "Employee Manager" }).render();
+//     // console.log(logoText);
+
+//     //load our prompts
+//     loadPrompts();
+// }
 module.exports = connection;

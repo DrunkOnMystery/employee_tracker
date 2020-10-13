@@ -1,66 +1,43 @@
 const inquirer = require("inquirer");
 const connection = require("./db/connection");
+// const index = require("./index");
+// const console = require("console.table");
 
 
 
 function viewEmployees() {
 
-   return connection.query(
-
-    function viewSingleEmployee() {
-        //visitSingleEmployee function
-    }
-
-    function addEmployee() {
-        //addEmployee function. role salary manager department
-        inquirer.prompt ({
-            type: "input",
-            name: "firstName",
-            message: "What is the new employee's first name?"
-        },
-        {
-            type: "input",
-            name: "lastName",
-            message: "What is the new employee's last name?"
-        },
-        {
-            type: "number",
-            name: "role",
-            message: "What is the new employee's role ID?"
-        },
-        {
-            type: "number",
-            name: "salary",
-            message: "What is the new employee's salary?"
-        },
-        {
-            type: "number",
-            name: "department",
-            message: "What is the new employee's department ID?"
-        })
-        .then(answer => {
-            const employee = new Employee(answer.firstName, answer.lastName, answer.role, answer.salary, answer.department);
-            push.teamMembers(employee);
-            //push this info into the database, somehow
-            viewEmployees();
-        })
-    }
-        
-    function deleteEmployee() {
-        //deleteEmployee function
-    }
-
-    function editEmployee() {
-        //editEmployee function
-    }
-
-    function listEmployees() {
-        //listEmployees function
-    }
-
-    function mainMenu() {
-        loadPrompts();
-    }
+   var query = "SELECT first_name, last_name FROM employee" 
+   connection.query(query, function(err, res) {
+       if (err) throw err;
+       console.table(res);
+   })
 }
 
-module.exports = viewEmployees;
+function viewDepartments() {
+    var query = "SELECT name FROM department" 
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.table(res);
+    })
+
+}
+
+function viewRoles() {
+    var query = "SELECT title FROM role" 
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.table(res);
+    })
+}
+
+function addDepartment() {
+
+
+}
+
+
+module.exports = { viewEmployees, viewDepartments, viewRoles, addDepartment,
+
+
+}

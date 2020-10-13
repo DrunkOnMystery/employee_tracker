@@ -1,16 +1,17 @@
 //Require statements
 const inquirer = require("inquirer");
 const logo = require("logo");
-const console = require("console.table");
 const connection = require("./db/connection");
+const viewEmployees = require("./employees");
+const { allowedNodeEnvironmentFlags } = require("process");
 
-teamMembers = [];
+// teamMembers = [];
 
-//function init()
+
 
 function init() {
-    const logoText = logo({ name: "Employee Manager" }).render();
-    console.log(logoText);
+    // const logoText = logo({ name: "Employee Manager" }).render();
+    // console.log(logoText);
 
     //load our prompts
     loadPrompts();
@@ -21,85 +22,71 @@ function loadPrompts() {
         type: "list",
         name: "choices",
         message: "What would you like to do?",
-        choice: [{
-            name: "View Employees",
-            value: "VIEW_EMPLOYEES"
-        },
-        {
-            name: "View Departments",
-            value: "VIEW_DEPARTMENTS"
-        },
-        {
-            name: "View All Roles",
-            value: "VIEW_ROLES"
-        },
-        {
-            name: "Add department",
-            value: "ADD_DEPARTMENT"
-        },
-        {
-            name: "Add Role",
-            value: "ADD_ROLE"
-        },
-        {
-            name: "Update Employee Roles",
-            value: "UPDATE_ROLES"
-        },
-        {
-            name: "Update Employe Managers",
-            value: "UPDATE_MANAGERS"
-        },
-        {
-            name: "List Employees By Manager",
-            value: "EMPLOYEES_MANAGER"
-        },
-        {
-            name: "Delete Department",
-            value: "DELETE_DEPARTMENT"
-        },
-        {
-            name: "Delete roles",
-            value: "DELETE_ROLES"
-        },
-        {
-            name: "Delete Employees",
-            value: "DELETE_EMPLOYEES"
-        },
-        {
-            name: "View Total Budget",
-            value: "VIEW_BUDGET"
-        },
-        {
-            name: "Finish",
-            value: "FINISH"
-        }
-    ]
+        choices: [ "View Employees", "View Departments", "View All Roles", "Add A Department",
+        "Add A Role", "Update Employee Roles", "Update Employee Managers", "List Employees By Manager",
+        "Delete A Department", "Delete An Employee Role", "Delete An Employee", "View Total Budget",
+        "Disconnect"]       
     })
 
-    .then (answer => {
+    .then (async answer => {
     //Switch statement
     switch (answer.choices) {
-        case "VIEW_EMPLOYEES":
-            return viewEmployees();
+        case "View Employees":
+            viewEmployees();
+            break;
 
-        case "VIEW_DEPARTMENTS":
-            return viewDepartments();
-
-        case "VIEW_BUDGET":
-            return viewBudget();
-        
-        case "FINISH":
-            ////end
+        case "View Departments":
+            viewDepartments();
+            // loadPrompts();
+            break;
+        case "View All Roles":
+            viewRoles();
+            // loadPrompts();
+            break;
+        case "Add A Department":
+            addDepartment();
+            // loadPrompts();
+            break;
+        case "Add A Role":
+            addRole();
+            // loadPrompts();
+            break;
+        case "Update Employee Roles":
+            updateRole();
+            // loadPrompts();
+            break;
+        case "Update Employee Managers":
+            updateManager();
+            // loadPrompts();
+            break;
+        case "List Employees By Manager":
+            listByManager();
+            // loadPrompts();
+            break;
+        case "Delete A Department":
+            deleteDepartment();
+            // loadPrompts();
+            break;
+        case "Delete An Employee Role":
+            deleteRole();
+            // loadPrompts();
+            break;
+        case "Delete An Employee":
+            deleteEmployee();
+            // loadPrompts();
+            break;
+        case "View Total Budget":
+            viewBudget();
+            // loadPrompts();
+            break;        
+        case "Disconnect":
+            connection.end();
     }
+    .then {
 
-
+    }
 })
-
+}
 init();
 
-
-module.exports = {
-    viewEmployees,
-    viewDepartments,
-    viewBudget
-}
+// module.exports = index;
