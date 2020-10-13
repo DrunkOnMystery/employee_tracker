@@ -2,7 +2,17 @@
 const inquirer = require("inquirer");
 const logo = require("logo");
 const connection = require("./db/connection");
-const viewEmployees = require("./employees");
+const employees = require("./employees");
+const viewEmployees = employees.viewEmployees;
+const viewDepartments = employees.viewDepartments;
+const viewRoles = employees.viewRoles;
+const addDepartment = employees.addDepartment;
+const addRole = employees.addRole;
+const updateRole = employees.updateRole;
+const listByManager = employees.listByManager;
+const deleteDepartment = employees.deleteDepartment;
+const deleteRole = employees.deleteRole;
+const deleteEmployee = employees.deleteEmployee
 const { allowedNodeEnvironmentFlags } = require("process");
 
 // teamMembers = [];
@@ -14,7 +24,7 @@ function init() {
     // console.log(logoText);
 
     //load our prompts
-    loadPrompts();
+loadPrompts();
 }
 
 function loadPrompts() {
@@ -28,7 +38,7 @@ function loadPrompts() {
         "Disconnect"]       
     })
 
-    .then (async answer => {
+    .then  (answer => {
     //Switch statement
     switch (answer.choices) {
         case "View Employees":
@@ -81,9 +91,6 @@ function loadPrompts() {
             break;        
         case "Disconnect":
             connection.end();
-    }
-    .then {
-
     }
 })
 }

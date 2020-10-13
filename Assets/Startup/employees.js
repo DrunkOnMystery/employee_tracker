@@ -32,12 +32,23 @@ function viewRoles() {
 }
 
 function addDepartment() {
+    inquirer.prompt({
+        type: "index",
+        name: "addDepartment",
+        message: "What department would you like to add?",
+    })
+    .then(
+        connection.query("INSERT INTO department(name)"),
+                    "VALUES ?", ("name", function (err, result) {
+                        if (err) throw err
+                    })
+
+    
+    )}
 
 
-}
-
-
-module.exports = { viewEmployees, viewDepartments, viewRoles, addDepartment,
-
-
-}
+module.exports = { viewEmployees: viewEmployees(),
+    viewDepartments: viewDepartments(), 
+    viewRoles: viewRoles(),
+    addDepartment: addDepartment(),
+};
