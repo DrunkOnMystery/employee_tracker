@@ -3,16 +3,16 @@ const inquirer = require("inquirer");
 const logo = require("logo");
 const connection = require("./db/connection");
 const employees = require("./employees");
-const viewEmployees = employees.viewEmployees;
-const viewDepartments = employees.viewDepartments;
-const viewRoles = employees.viewRoles;
-const addDepartment = employees.addDepartment;
-const addRole = employees.addRole;
-const updateRole = employees.updateRole;
-const listByManager = employees.listByManager;
-const deleteDepartment = employees.deleteDepartment;
-const deleteRole = employees.deleteRole;
-const deleteEmployee = employees.deleteEmployee
+// const viewEmployees = employees.viewEmployees;
+// const viewDepartments = employees.viewDepartments;
+// const viewRoles = employees.viewRoles;
+// const addDepartment = employees.addDepartment;
+// const addRole = employees.addRole;
+// const updateRole = employees.updateRole;
+// const listByManager = employees.listByManager;
+// const deleteDepartment = employees.deleteDepartment;
+// const deleteRole = employees.deleteRole;
+// const deleteEmployee = employees.deleteEmployee
 const { allowedNodeEnvironmentFlags } = require("process");
 
 
@@ -99,7 +99,7 @@ function loadPrompts() {
 
 function viewEmployees() {
 
-    var query = "SELECT first_name, last_name FROM employee" 
+    var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee" 
     connection.query(query, function(err, res) {
         if (err) throw err;
         console.table(res);
@@ -200,7 +200,47 @@ function addEmployee() {
                         })})
 }
 
+function updateRole() {
 
+    var query = "SELECT first_name, last_name FROM employee" 
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.table(res);
+    })
+
+    var query = "SELECT title FROM role" 
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.table(res);
+     })
+
+    inquirer.prompt([
+        {
+            type: "number",
+            name: "updateEmployee",
+            message: "What is the id number of the employee whose role you wish to update?"
+        },
+        {
+            type: "number",
+            name: "newRole",
+            message: "What is the id of the employee's new role?"
+        }
+    ])
+    .then(answer => {
+        connection.query("Update employee SET ? WHERE ?",
+        [
+            {
+                role_id: answer.newRole
+            },
+            {
+                id: answer.updateEmployee
+            }
+        ],
+        )
+        console.log("You've updated this employee's role.")
+        loadPrompts();
+    })
+}
 
 
 init();
