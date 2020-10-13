@@ -15,8 +15,6 @@ const deleteRole = employees.deleteRole;
 const deleteEmployee = employees.deleteEmployee
 const { allowedNodeEnvironmentFlags } = require("process");
 
-// teamMembers = [];
-
 
 
 function init() {
@@ -33,7 +31,7 @@ function loadPrompts() {
         name: "choices",
         message: "What would you like to do?",
         choices: [ "View Employees", "View Departments", "View All Roles", "Add A Department",
-        "Add A Role", "Update Employee Roles", "Update Employee Managers", "List Employees By Manager",
+        "Add A Role", "Add An Employee", "Update Employee Roles", "Update Employee Managers", "List Employees By Manager",
         "Delete A Department", "Delete An Employee Role", "Delete An Employee", "View Total Budget",
         "Disconnect"]       
     })
@@ -59,6 +57,10 @@ function loadPrompts() {
             break;
         case "Add A Role":
             addRole();
+            // loadPrompts();
+            break;
+        case "Add An Employee":
+            addEmployee();
             // loadPrompts();
             break;
         case "Update Employee Roles":
@@ -93,7 +95,114 @@ function loadPrompts() {
             connection.end();
     }
 })
+
+
+function viewEmployees() {
+
+    var query = "SELECT first_name, last_name FROM employee" 
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.table(res);
+        loadPrompts();
+    })
+ }
+ 
+ function viewDepartments() {
+     var query = "SELECT name FROM department" 
+     connection.query(query, function(err, res) {
+         if (err) throw err;
+         console.table(res);
+         loadPrompts();
+     })
+ 
+ }
+ 
+ function viewRoles() {
+     var query = "SELECT title FROM role" 
+     connection.query(query, function(err, res) {
+         if (err) throw err;
+         console.table(res);
+         loadPrompts();
+     })
+ }
+ 
+ function addDepartment() {
+     inquirer.prompt({
+         type: "index",
+         name: "addDepartment",
+         message: "What department would you like to add?",
+     })
+     .then(answer => {
+         connection.query("INSERT INTO department SET ?",
+                     {name: answer.addDepartment}, function (err) {
+                         if (err) throw err;
+                         console.log("You've added a department successfully.")
+                         loadPrompts();
+                     })})
 }
+ 
+ function addRole() {
+     inquirer.prompt([{
+            type: "index",
+            name: "addRole",
+            message: "What role would you like to add?",
+         },
+         {
+            type: "number",
+            name: "salary",
+            message: "What is the salary of this new role?"
+         },
+        {
+            type: "number",
+            name: "department",
+            message: "What department id will this role fall under?"
+        }])
+        
+     .then(answer => {
+         connection.query("INSERT INTO role SET ?",
+                {title: answer.addRole, salary: answer.salary, department_id: answer.department}, function (err) {
+                         if (err) throw err;
+                         console.log("You've added a new role")
+                         loadPrompts();
+                         })})
+    }
+}
+
+function addEmployee() {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "first_name",
+            message: "What is the first name of the new employee?"
+        },
+        {
+            type: "input",
+            name: "last_name",
+            message: "What is the last name of the new employee?"
+        },
+        {
+            type: "number",
+            name: "role",
+            message: "What is the id for this person's role?"
+        },
+        {
+            type: "number",
+            name: "manager",
+            message: "What is the id of this employee's manager, if any?"
+        }
+    ])
+    .then(answer => {
+        connection.query("INSERT INTO employee SET ?",
+               {first_name: answer.first_name, last_name: answer.last_name, role_id: answer.role, manager_id: answer.manager}, function (err) {
+                        if (err) throw err;
+                        console.log("You've added a new employee.")
+                        loadPrompts();
+                        })})
+}
+
+
+
+
 init();
 
-// module.exports = index;
+module.exports = loadPrompts;

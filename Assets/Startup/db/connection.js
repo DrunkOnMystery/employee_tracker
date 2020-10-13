@@ -1,5 +1,6 @@
 const { builtinModules } = require("module");
 const mysql = require("mysql");
+// const loadPrompts = require("../index");
 
 const connection = mysql.createConnection({
     host: "localhost",
@@ -13,7 +14,7 @@ const connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
 //   console.log("connected as id " + connection.threadId + "\n");
-//   init();  
+    // init();  
 });
 
 // function init() {
