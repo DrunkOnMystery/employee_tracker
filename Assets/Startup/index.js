@@ -192,15 +192,15 @@ function addEmployee() {
             name: "manager",
             message: "What is the id of this employee's manager, if any?",
             /* Legacy way: with this.async */
-            validate: function (input) {
+            // validate: function (input) {
 
-                if (typeof input == "NaN") {
-                    // Pass the return value in the done callback
-                    return 'You need to provide a number';
-                }
-                return true;
+            //     if (typeof input == "NaN") {
+            //         // Pass the return value in the done callback
+            //         return 'You need to provide a number';
+            //     }
+            //     return true;
 
-            }
+            // }
         }
     ])
         .then(answer => {
@@ -295,6 +295,35 @@ function updateManager() {
             console.log("You've updated this employee's manager.")
             loadPrompts();
         })
+}
+
+function deleteDepartment(); {
+
+    var query = "SELECT name FROM department"
+    connection.query(query, function (err, res) {
+        if (err) throw err;
+        console.table(res);
+
+        inquirer.prompt(
+            {
+                type: "input",
+                name: "deleteDept",
+                message: "Which department would you like to delete?"
+            }
+        )
+            .then(answer => {
+                connection.query("DELETE FROM department WHERE ?",
+                    {
+                        department: "answer.deleteDept"
+                    },
+                    function (err, res) {
+                        if (err) throw err;
+                        console.log("You've successfully deleted the " + answer.deleteDept + "department.");
+                        loadPrompts();
+                    })
+            })
+    })
+
 }
 
 
