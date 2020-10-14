@@ -316,14 +316,70 @@ function deleteDepartment(); {
                     {
                         department: "answer.deleteDept"
                     },
-                    function (err, res) {
+                    function (err) {
                         if (err) throw err;
                         console.log("You've successfully deleted the " + answer.deleteDept + "department.");
                         loadPrompts();
                     })
             })
     })
+}
 
+
+function deleteRole(); {
+
+    var query = "SELECT title FROM role"
+    connection.query(query, function (err, res) {
+        if (err) throw err;
+        console.table(res);
+
+        inquirer.prompt(
+            {
+                type: "input",
+                name: "deleteRole",
+                message: "Which role would you like to delete?"
+            }
+        )
+            .then(answer => {
+                connection.query("DELETE FROM role WHERE ?",
+                    {
+                        department: "answer.deleteRole"
+                    },
+                    function (err) {
+                        if (err) throw err;
+                        console.log("You've successfully deleted the " + answer.deleteRole + "role.");
+                        loadPrompts();
+                    })
+            })
+    })
+}
+
+function deleteEmployee(); {
+
+    var query = "SELECT first_name FROM employee"
+    connection.query(query, function (err, res) {
+        if (err) throw err;
+        console.table(res);
+
+        inquirer.prompt(
+            {
+                type: "input",
+                name: "deleteEmployee",
+                message: "What is the first name of the employee you would like to delete?"
+            }
+        )
+            .then(answer => {
+                connection.query("DELETE FROM employee WHERE ?",
+                    {
+                        department: "answer.deleteEmployee"
+                    },
+                    function (err) {
+                        if (err) throw err;
+                        console.log("You've successfully deleted " + answer.deleteEmployee + ".");
+                        loadPrompts();
+                    })
+            })
+    })
 }
 
 
