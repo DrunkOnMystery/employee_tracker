@@ -90,6 +90,7 @@ function loadPrompts() {
         })
     }
 
+
     function viewDepartments() {
         var query = "SELECT name FROM department"
         connection.query(query, function (err, res) {
@@ -349,7 +350,7 @@ function deleteEmployee() {
                     },
                     function (err) {
                         if (err) throw err;
-                        console.log("You've successfully deleted " + answer.deleteEmployee + "from the database.");
+                        console.log("You've successfully deleted " + answer.deleteEmployee + " from the database.");
                         loadPrompts();
                     })
             })
