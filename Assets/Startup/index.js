@@ -297,7 +297,7 @@ function updateManager() {
         })
 }
 
-function deleteDepartment(); {
+function deleteDepartment() {
 
     var query = "SELECT name FROM department"
     connection.query(query, function (err, res) {
@@ -314,11 +314,11 @@ function deleteDepartment(); {
             .then(answer => {
                 connection.query("DELETE FROM department WHERE ?",
                     {
-                        department: "answer.deleteDept"
+                        name: answer.deleteDept
                     },
                     function (err) {
                         if (err) throw err;
-                        console.log("You've successfully deleted the " + answer.deleteDept + "department.");
+                        console.log("You've successfully deleted the " + answer.deleteDept + " department.");
                         loadPrompts();
                     })
             })
@@ -326,7 +326,7 @@ function deleteDepartment(); {
 }
 
 
-function deleteRole(); {
+function deleteRole() {
 
     var query = "SELECT title FROM role"
     connection.query(query, function (err, res) {
@@ -343,18 +343,18 @@ function deleteRole(); {
             .then(answer => {
                 connection.query("DELETE FROM role WHERE ?",
                     {
-                        department: "answer.deleteRole"
+                        title: answer.deleteRole
                     },
                     function (err) {
                         if (err) throw err;
-                        console.log("You've successfully deleted the " + answer.deleteRole + "role.");
+                        console.log("You've successfully deleted the " + answer.deleteRole + " role.");
                         loadPrompts();
                     })
             })
     })
 }
 
-function deleteEmployee(); {
+function deleteEmployee() {
 
     var query = "SELECT first_name FROM employee"
     connection.query(query, function (err, res) {
@@ -371,7 +371,7 @@ function deleteEmployee(); {
             .then(answer => {
                 connection.query("DELETE FROM employee WHERE ?",
                     {
-                        department: "answer.deleteEmployee"
+                        first_name: answer.deleteEmployee
                     },
                     function (err) {
                         if (err) throw err;
