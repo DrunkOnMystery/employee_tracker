@@ -1,19 +1,19 @@
 const inquirer = require("inquirer");
 const connection = require("./db/connection");
-// const index = require("./index");
+const {loadPrompts} = require("./index");
 // const console = require("console.table");
 
 
 
-// function viewEmployees() {
+function viewEmployees() {
 
-//    var query = "SELECT first_name, last_name FROM employee" 
-//    connection.query(query, function(err, res) {
-//        if (err) throw err;
-//        console.table(res);
-//    })
-// }
-
+    var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
+    connection.query(query, function (err, res) {
+        if (err) throw err;
+        console.table(res);
+        loadPrompts();
+    })
+}
 // function viewDepartments() {
 //     var query = "SELECT name FROM department" 
 //     connection.query(query, function(err, res) {
@@ -65,12 +65,4 @@ const connection = require("./db/connection");
 //     })
 // }
 
-
-// module.exports = { viewEmployees: viewEmployees(),
-//     viewDepartments: viewDepartments(), 
-//     viewRoles: viewRoles(),
-    // addDepartment: addDepartment(),
-    // addRole: addRole(),
-    // updateRole: updateRole(),
-
-// };
+module.exports = {viewEmployees}

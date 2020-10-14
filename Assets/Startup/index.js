@@ -2,7 +2,7 @@
 const inquirer = require("inquirer");
 const logo = require("asciiart-logo");
 const connection = require("./db/connection");
-const employees = require("./employees");
+const {viewEmployees} = require("./employees");
 // const viewEmployees = employees.viewEmployees;
 // const viewDepartments = employees.viewDepartments;
 // const viewRoles = employees.viewRoles;
@@ -97,15 +97,15 @@ function loadPrompts() {
         })
 
 
-    function viewEmployees() {
+    // function viewEmployees() {
 
-        var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
-        connection.query(query, function (err, res) {
-            if (err) throw err;
-            console.table(res);
-            loadPrompts();
-        })
-    }
+    //     var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
+    //     connection.query(query, function (err, res) {
+    //         if (err) throw err;
+    //         console.table(res);
+    //         loadPrompts();
+    //     })
+    // }
 
     function viewDepartments() {
         var query = "SELECT name FROM department"
@@ -385,4 +385,4 @@ function deleteEmployee() {
 
 init();
 
-module.exports = loadPrompts;
+module.exports = {loadPrompts}
