@@ -2,25 +2,15 @@
 const inquirer = require("inquirer");
 const logo = require("asciiart-logo");
 const connection = require("./db/connection");
-const {viewEmployees} = require("./employees");
-// const viewEmployees = employees.viewEmployees;
-// const viewDepartments = employees.viewDepartments;
-// const viewRoles = employees.viewRoles;
-// const addDepartment = employees.addDepartment;
-// const addRole = employees.addRole;
-// const updateRole = employees.updateRole;
-// const listByManager = employees.listByManager;
-// const deleteDepartment = employees.deleteDepartment;
-// const deleteRole = employees.deleteRole;
-// const deleteEmployee = employees.deleteEmployee
-const { allowedNodeEnvironmentFlags } = require("process");
+// const {viewEmployees,
+//        viewDepartments } = require("./employees");
+
 
 
 
 function init() {
     const logoText = logo({ name: "Employee Manager" }).render();
     console.log(logoText);
-
 
     loadPrompts();
 }
@@ -31,8 +21,8 @@ function loadPrompts() {
         name: "choices",
         message: "What would you like to do?",
         choices: ["View Employees", "View Departments", "View All Roles", "Add A Department",
-            "Add A Role", "Add An Employee", "Update Employee Roles", "Update Employee Managers", "List Employees By Manager",
-            "Delete A Department", "Delete An Employee Role", "Delete An Employee", "View Total Budget",
+            "Add A Role", "Add An Employee", "Update An Employee Role", "Update Employee Managers", 
+            "Delete A Department", "Delete An Employee Role", "Delete An Employee",
             "Disconnect"]
     })
 
@@ -41,6 +31,7 @@ function loadPrompts() {
             switch (answer.choices) {
                 case "View Employees":
                     viewEmployees();
+                    // loadPrompts();
                     break;
 
                 case "View Departments":
@@ -63,16 +54,12 @@ function loadPrompts() {
                     addEmployee();
                     // loadPrompts();
                     break;
-                case "Update Employee Roles":
+                case "Update An Employee Role":
                     updateRole();
                     // loadPrompts();
                     break;
                 case "Update Employee Managers":
                     updateManager();
-                    // loadPrompts();
-                    break;
-                case "List Employees By Manager":
-                    listByManager();
                     // loadPrompts();
                     break;
                 case "Delete A Department":
@@ -87,25 +74,21 @@ function loadPrompts() {
                     deleteEmployee();
                     // loadPrompts();
                     break;
-                case "View Total Budget":
-                    viewBudget();
-                    // loadPrompts();
-                    break;
                 case "Disconnect":
                     connection.end();
             }
         })
 
 
-    // function viewEmployees() {
+    function viewEmployees() {
 
-    //     var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
-    //     connection.query(query, function (err, res) {
-    //         if (err) throw err;
-    //         console.table(res);
-    //         loadPrompts();
-    //     })
-    // }
+        var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
+        connection.query(query, function (err, res) {
+            if (err) throw err;
+            console.table(res);
+            loadPrompts();
+        })
+    }
 
     function viewDepartments() {
         var query = "SELECT name FROM department"
@@ -143,6 +126,11 @@ function loadPrompts() {
     }
 
     function addRole() {
+        var query = "SELECT name FROM department"
+        connection.query(query, function (err, res) {
+            if (err) throw err;
+            console.table(res);
+
         inquirer.prompt([{
             type: "index",
             name: "addRole",
@@ -167,7 +155,7 @@ function loadPrompts() {
                         loadPrompts();
                     })
             })
-    }
+    })
 }
 
 function addEmployee() {
@@ -187,25 +175,10 @@ function addEmployee() {
             name: "role",
             message: "What is the id for this person's role?"
         },
-        {
-            type: "number",
-            name: "manager",
-            message: "What is the id of this employee's manager, if any?",
-            /* Legacy way: with this.async */
-            // validate: function (input) {
-
-            //     if (typeof input == "NaN") {
-            //         // Pass the return value in the done callback
-            //         return 'You need to provide a number';
-            //     }
-            //     return true;
-
-            // }
-        }
     ])
         .then(answer => {
             connection.query("INSERT INTO employee SET ?",
-                { first_name: answer.first_name, last_name: answer.last_name, role_id: answer.role, manager_id: answer.manager }, function (err) {
+                { first_name: answer.first_name, last_name: answer.last_name, role_id: answer.role}, function (err) {
                     if (err) throw err;
                     console.log("You've added a new employee.")
                     loadPrompts();
@@ -214,7 +187,7 @@ function addEmployee() {
 }
 
 function updateRole() {
-
+   
     var query = "SELECT first_name, last_name FROM employee"
     connection.query(query, function (err, res) {
         if (err) throw err;
@@ -231,7 +204,7 @@ function updateRole() {
         {
             type: "number",
             name: "updateEmployee",
-            message: "What is the id number of the employee whose role you wish to update?"
+            message: "What id number of the employee you wish to update?",
         },
         {
             type: "number",
@@ -253,6 +226,7 @@ function updateRole() {
             console.log("You've updated this employee's role.")
             loadPrompts();
         })
+    }
 }
 
 function updateManager() {
@@ -385,4 +359,4 @@ function deleteEmployee() {
 
 init();
 
-module.exports = {loadPrompts}
+// module.exports = loadPrompts
