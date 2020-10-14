@@ -375,7 +375,7 @@ function deleteEmployee() {
                     },
                     function (err) {
                         if (err) throw err;
-                        console.log("You've successfully deleted " + answer.deleteEmployee + ".");
+                        console.log("You've successfully deleted " + answer.deleteEmployee + "from the database.");
                         loadPrompts();
                     })
             })
