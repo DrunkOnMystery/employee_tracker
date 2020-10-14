@@ -2,12 +2,9 @@
 const inquirer = require("inquirer");
 const logo = require("asciiart-logo");
 const connection = require("./db/connection");
-// const {viewEmployees,
-//        viewDepartments } = require("./employees");
 
 
-
-
+//initial function
 function init() {
     const logoText = logo({ name: "Employee Manager" }).render();
     console.log(logoText);
@@ -15,6 +12,7 @@ function init() {
     loadPrompts();
 }
 
+//function that prompts the user
 function loadPrompts() {
     inquirer.prompt({
         type: "list",
@@ -31,55 +29,44 @@ function loadPrompts() {
             switch (answer.choices) {
                 case "View Employees":
                     viewEmployees();
-                    // loadPrompts();
                     break;
 
                 case "View Departments":
                     viewDepartments();
-                    // loadPrompts();
                     break;
                 case "View All Roles":
                     viewRoles();
-                    // loadPrompts();
                     break;
                 case "Add A Department":
                     addDepartment();
-                    // loadPrompts();
                     break;
                 case "Add A Role":
                     addRole();
-                    // loadPrompts();
                     break;
                 case "Add An Employee":
                     addEmployee();
-                    // loadPrompts();
                     break;
                 case "Update An Employee Role":
                     updateRole();
-                    // loadPrompts();
                     break;
                 case "Update Employee Managers":
                     updateManager();
-                    // loadPrompts();
                     break;
                 case "Delete A Department":
                     deleteDepartment();
-                    // loadPrompts();
                     break;
                 case "Delete An Employee Role":
                     deleteRole();
-                    // loadPrompts();
                     break;
                 case "Delete An Employee":
                     deleteEmployee();
-                    // loadPrompts();
                     break;
                 case "Disconnect":
                     connection.end();
             }
         })
 
-
+//view employees function
     function viewEmployees() {
 
         var query = "SELECT id, first_name, last_name, role_id, manager_id FROM employee"
@@ -90,7 +77,7 @@ function loadPrompts() {
         })
     }
 
-
+//view departments function
     function viewDepartments() {
         var query = "SELECT name FROM department"
         connection.query(query, function (err, res) {
@@ -101,6 +88,7 @@ function loadPrompts() {
 
     }
 
+//view roles function
     function viewRoles() {
         var query = "SELECT title FROM role"
         connection.query(query, function (err, res) {
@@ -110,7 +98,9 @@ function loadPrompts() {
         })
     }
 
+//add department function
     function addDepartment() {
+
         inquirer.prompt({
             type: "index",
             name: "addDepartment",
@@ -126,6 +116,7 @@ function loadPrompts() {
             })
     }
 
+//add role function
     function addRole() {
         var query = "SELECT name FROM department"
         connection.query(query, function (err, res) {
@@ -159,6 +150,7 @@ function loadPrompts() {
     })
 }
 
+//add employee function
 function addEmployee() {
     inquirer.prompt([
         {
@@ -187,6 +179,7 @@ function addEmployee() {
         })
 }
 
+//update role function
 function updateRole() {
    
     var query = "SELECT first_name, last_name FROM employee"
@@ -230,6 +223,7 @@ function updateRole() {
     }
 }
 
+//update manager function
 function updateManager() {
 
     var query = "SELECT first_name, last_name FROM employee"
@@ -272,6 +266,7 @@ function updateManager() {
         })
 }
 
+//delete department function
 function deleteDepartment() {
 
     var query = "SELECT name FROM department"
@@ -300,7 +295,7 @@ function deleteDepartment() {
     })
 }
 
-
+//delete role function
 function deleteRole() {
 
     var query = "SELECT title FROM role"
@@ -329,6 +324,7 @@ function deleteRole() {
     })
 }
 
+//delete employee function
 function deleteEmployee() {
 
     var query = "SELECT first_name FROM employee"
@@ -357,7 +353,6 @@ function deleteEmployee() {
     })
 }
 
-
+//call initial function
 init();
 
-// module.exports = loadPrompts
