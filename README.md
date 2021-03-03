@@ -12,18 +12,18 @@ This project is a MySQL database program designed to allow a manager to edit the
 * [Credits](#credits)
 * [License](#license)
 * [Badges](#badges)
-* [Contributing](#contributing)
-* [Tests](#tests)
+* [Questions](#questions)
 
 
 ## Installation
 
-To use this project, the user must install inquirer, asciiart-logo, set up proper database connections, and download all relevant files.
+To use this project, the user must clone this repo.
+Then, the user must install inquirer, asciiart-logo, set up proper database connections. The user will also need to set up MySQL.
 
 
 ## Usage 
 
-This project is available to all under fair use.
+This project is available to anyone with proper attribution.
 
 
 ## Credits
@@ -41,13 +41,6 @@ Copyright (c) 2020 Benjamin Brumby
 ## Badges
 
 ![Picture of MIT](https://img.shields.io/badge/license-MIT-blue.svg)
-
-## Contributing
-
-
-
-## Tests
-
 
 
 ## Questions
